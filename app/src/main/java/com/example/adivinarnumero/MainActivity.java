@@ -5,6 +5,9 @@ import static android.app.PendingIntent.getActivity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.adivinarnumero.MyAlertDialog;
+
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,11 +29,22 @@ public class MainActivity extends AppCompatActivity {
         TextView cartel1 = findViewById(R.id.textView);
         cartel1.setText("Nº intentos: ");
 
+        TextView cartel2 = findViewById(R.id.textView5);
+        cartel2.setText("Intentos:");
+
         TextView cartelNumIntentos = findViewById(R.id.textView2);
         cartelNumIntentos.setText(String.valueOf(numIntentos));
 
         TextView guardarIntentos = findViewById(R.id.textView3);
         guardarIntentos.setText("");
+
+        // Define a custom Typeface for a bold font
+        Typeface customTypeface = Typeface.create("sans-serif", Typeface.BOLD);
+
+        TextView cartelTitulo = findViewById(R.id.textView6);
+        cartelTitulo.setText("Adivina el número\n entre 1 y 100");
+        cartelTitulo.setTextSize(20);
+        cartelTitulo.setTypeface(customTypeface);
 
         EditText cajaNum = findViewById(R.id.editTextNumber2);
 
@@ -40,27 +54,34 @@ public class MainActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int numInput = Integer.parseInt(cajaNum.getText().toString());
-                if ( numInput > randomNumber) {
-                    Toast.makeText(MainActivity.this, "El número que buscas es menor!", Toast.LENGTH_SHORT).show();
-                    intentos = intentos + "<" + cajaNum.getText() + "\n";
-                    guardarIntentos.setText(intentos);
-                    numIntentos++;
-                    cartelNumIntentos.setText(String.valueOf(numIntentos));
-                } else if (numInput < randomNumber) {
-                    Toast.makeText(MainActivity.this, "El número que buscas es mayor!", Toast.LENGTH_SHORT).show();
-                    intentos = intentos + ">" + cajaNum.getText() + "\n";
-                    guardarIntentos.setText(intentos);
-                    numIntentos++;
-                    cartelNumIntentos.setText(String.valueOf(numIntentos));
+                if (String.valueOf(cajaNum.getText()).equals("")){
+                    MyAlertDialog.showAlertDialog(MainActivity.this, "AdivinarNumero", "Introduce un numero!");
                 } else {
-                    MyAlertDialog.showAlertDialog(MainActivity.this, "AdivinarNumero", "¡Has ganado!");
-                    intentos = "";
-                    guardarIntentos.setText(intentos);
-                    numIntentos = 0;
-                    cartelNumIntentos.setText(String.valueOf(numIntentos));
-                    randomNumber = (int) (Math.random() * 100);
-                                    }
+                    int numInput = Integer.parseInt(cajaNum.getText().toString());
+                    if ( numInput > randomNumber) {
+                        Toast.makeText(MainActivity.this, "El número que buscas es menor!", Toast.LENGTH_SHORT).show();
+                        intentos = intentos + "<" + cajaNum.getText() + "\n";
+                        cajaNum.setText("");
+                        guardarIntentos.setText(intentos);
+                        numIntentos++;
+                        cartelNumIntentos.setText(String.valueOf(numIntentos));
+                    } else if (numInput < randomNumber) {
+                        Toast.makeText(MainActivity.this, "El número que buscas es mayor!", Toast.LENGTH_SHORT).show();
+                        intentos = intentos + ">" + cajaNum.getText() + "\n";
+                        cajaNum.setText("");
+                        guardarIntentos.setText(intentos);
+                        numIntentos++;
+                        cartelNumIntentos.setText(String.valueOf(numIntentos));
+                    } else {
+                        MyAlertDialog.showAlertDialog(MainActivity.this, "AdivinarNumero", "¡Has ganado!");
+                        intentos = "";
+                        cajaNum.setText("");
+                        guardarIntentos.setText(intentos);
+                        numIntentos = 0;
+                        cartelNumIntentos.setText(String.valueOf(numIntentos));
+                        randomNumber = (int) (Math.random() * 100);
+                    }
+                }
             }
         });
     }
