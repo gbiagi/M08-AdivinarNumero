@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
         TextView guardarIntentos = findViewById(R.id.textView3);
         guardarIntentos.setText("");
 
-        // Define a custom Typeface for a bold font
+        ScrollView scroll = findViewById(R.id.scrollView2);
+
         Typeface customTypeface = Typeface.create("sans-serif", Typeface.BOLD);
 
         TextView cartelTitulo = findViewById(R.id.textView6);
-        cartelTitulo.setText("Adivina el número\n entre 1 y 100");
+        cartelTitulo.setText("Adivina el número entre 1 y 100");
         cartelTitulo.setTextSize(20);
         cartelTitulo.setTypeface(customTypeface);
 
@@ -65,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                         guardarIntentos.setText(intentos);
                         numIntentos++;
                         cartelNumIntentos.setText(String.valueOf(numIntentos));
+                        scroll.scrollTo(0,scroll.getBottom());
                     } else if (numInput < randomNumber) {
                         Toast.makeText(MainActivity.this, "El número que buscas es mayor!", Toast.LENGTH_SHORT).show();
                         intentos = intentos + ">" + cajaNum.getText() + "\n";
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         guardarIntentos.setText(intentos);
                         numIntentos++;
                         cartelNumIntentos.setText(String.valueOf(numIntentos));
+                        scroll.scrollTo(0,scroll.getBottom());
                     } else {
                         MyAlertDialog.showAlertDialog(MainActivity.this, "AdivinarNumero", "¡Has ganado!");
                         intentos = "";
