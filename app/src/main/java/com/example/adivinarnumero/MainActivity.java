@@ -9,7 +9,9 @@ import com.example.adivinarnumero.MyAlertDialog;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     String intentos = "";
     int numIntentos = 0;
     int randomNumber = (int) (Math.random() * 100);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +51,24 @@ public class MainActivity extends AppCompatActivity {
         cartelTitulo.setTextSize(20);
         cartelTitulo.setTypeface(customTypeface);
 
-        EditText cajaNum = findViewById(R.id.editTextNumber2);
-
         final Button button1 = findViewById(R.id.button);
 
         button1.setText("Adivinar");
+
+        EditText cajaNum = findViewById(R.id.editTextNumber2);
+        cajaNum.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE ||
+                        (event != null && event.getAction() == KeyEvent.ACTION_DOWN &&
+                                event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    // Handle the Enter key press here
+                    button1.callOnClick();
+                    return true;
+                }
+                return false;
+            }
+        });
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
