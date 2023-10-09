@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (String.valueOf(cajaNum.getText()).equals("")){
-                    MyAlertDialog.showAlertDialog(MainActivity.this, "AdivinarNumero", "Introduce un numero!");
+                    MyAlertDialog.showNameDialog(MainActivity.this);
+                    //MyAlertDialog.showAlertDialog(MainActivity.this, "AdivinarNumero", "Introduce un numero!");
                 } else {
                     int numInput = Integer.parseInt(cajaNum.getText().toString());
                     if ( numInput > randomNumber) {
@@ -109,8 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void sendMessage(View view) {
         Intent intent = new Intent(MainActivity.this, RecordsActivity.class);
-        intent.putExtra(EXTRA_MESSAGE);
+        intent.putExtra("Hola1","Hola2");
         startActivity(intent);
-
     }
 }
