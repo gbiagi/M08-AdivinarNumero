@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.adivinarnumero.MyAlertDialog;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,21 +26,20 @@ public class MainActivity extends AppCompatActivity {
     String intentos = "";
     int numIntentos = 0;
     int randomNumber = (int) (Math.random() * 100);
+    public static final String EXTRA_MESSAGE = "HOLA DAVID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Setting textviews
         TextView cartel1 = findViewById(R.id.textView);
         cartel1.setText("Nº intentos: ");
-
         TextView cartel2 = findViewById(R.id.textView5);
         cartel2.setText("Intentos:");
-
         TextView cartelNumIntentos = findViewById(R.id.textView2);
         cartelNumIntentos.setText(String.valueOf(numIntentos));
-
         TextView guardarIntentos = findViewById(R.id.textView3);
         guardarIntentos.setText("");
 
@@ -52,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
         cartelTitulo.setTextSize(20);
         cartelTitulo.setTypeface(customTypeface);
 
+        // Setting buttons
         final Button button1 = findViewById(R.id.button);
-
+        Button buttonRank = findViewById(R.id.buttonRank);
         button1.setText("Adivinar");
 
         EditText cajaNum = findViewById(R.id.editTextNumber2);
@@ -105,5 +106,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void sendMessage(View view) {
+        Intent intent = new Intent(MainActivity.this, RecordsActivity.class);
+        intent.putExtra(EXTRA_MESSAGE);
+        startActivity(intent);
+
     }
 }
