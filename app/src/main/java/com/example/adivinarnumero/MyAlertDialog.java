@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
+import android.widget.TextView;
 
 public class MyAlertDialog {
     public static void showAlertDialog(Context context, String title, String message) {
@@ -12,6 +13,12 @@ public class MyAlertDialog {
         builder.setTitle(title);
         builder.setMessage(message);
         // Set a positive button and its click listener
+        builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 // Do something when the "OK" button is clicked
@@ -25,7 +32,6 @@ public class MyAlertDialog {
     public static void showNameDialog(Context context){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(R.layout.dialog_name);
-
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 // Do something when the "OK" button is clicked

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.adivinarnumero.MyAlertDialog;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // Setting buttons
         final Button button1 = findViewById(R.id.button);
         Button buttonRank = findViewById(R.id.buttonRank);
+
         button1.setText("Adivinar");
 
         EditText cajaNum = findViewById(R.id.editTextNumber2);
@@ -71,12 +73,18 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        buttonRank.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage(MainActivity.this);
+            }
+        });
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (String.valueOf(cajaNum.getText()).equals("")){
-                    MyAlertDialog.showNameDialog(MainActivity.this);
-                    //MyAlertDialog.showAlertDialog(MainActivity.this, "AdivinarNumero", "Introduce un numero!");
+                    // MyAlertDialog.showNameDialog(MainActivity.this);
+                    MyAlertDialog.showAlertDialog(MainActivity.this, "AdivinarNumero", "Introduce un numero!");
                 } else {
                     int numInput = Integer.parseInt(cajaNum.getText().toString());
                     if ( numInput > randomNumber) {
@@ -108,8 +116,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    public void sendMessage(View view) {
-        Intent intent = new Intent(MainActivity.this, RecordsActivity.class);
+    public void sendMessage(Context context) {
+        Intent intent = new Intent(context, RecordsActivity.class);
         intent.putExtra("Hola1","Hola2");
         startActivity(intent);
     }
